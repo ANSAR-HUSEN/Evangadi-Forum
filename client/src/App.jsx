@@ -1,9 +1,17 @@
 
 import React from 'react'
+import Routing from './Routing'
+
+import { Router } from 'react-router-dom'
+
 
 function App() {
   return (
-    <div><h1>EVANGADI FORUM</h1></div>
+    <div>
+
+    <Routing />
+
+    </div>
   )
 }
 

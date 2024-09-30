@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.signUp {
+  border-radius: 8px;
+  border: solid 1px lightgray;
+  width: 700px;
+  padding: 60px;
+  margin-top: 10%;
+  margin-left: 15%;
+  display: block;
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow: 10px 10px 10px lightgray;
+}
+
+.accountTitle h1 {
+  font-weight: 700;
+
+  font-family: sans-serif;
+  color: rgb(52, 71, 103);
+}
+
+form {
+  padding: 20px;
+  display: block;
+}
+
+.bigInput input {
+  width: 100%;
+  padding: 15px;
+  margin: 10px;
+  box-sizing: border-box;
+}
+
+.smallInput {
+  display: flex;
+  justify-content: space-between;
+}
+
+.smallInput input {
+  padding: 15px;
+  box-sizing: border-box;
+  width: 100%;
+  margin-left: 10px;
+}
+
+input {
+  border-radius: 8px;
+  border: solid 2px lightgray;
+  font-size: 20px;
+}
+
+.btn button {
+  background-color: var(--primary-button);
+  width: 100%;
+  padding: 15px;
+  margin: 10px;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+a {
+  color: var(--primary-color);
+}
+
+h4 {
+  margin: 10px;
+  color: var(--text-color);
+}
+h3 {
+  color: var(--text-color);
+}

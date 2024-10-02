@@ -1,14 +1,24 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './login.css'
+import "./login.css";
+import { GoEyeClosed, GoEye } from "react-icons/go";
 
 function Login() {
+   //useNavigate --->to re-direct user to homepage after successful login
    const navigate = useNavigate();
+   //useRef ---> allows to access input field values without causing re-renders
    const emailDom = useRef();
    const passwordDom = useRef();
+   const [showPassword, setShowPassword] = useState(false);
+   //password is hidden by default
+
+   const togglePasswordVisibility = () => {
+      setShowPassword(!showPassword);
+   }; 
 
    async function handleSubmit(e) {
       e.preventDefault();
+      //function runs when the user submits the form
 
       const emailValue = emailDom.current.value;
       const passwordValue = passwordDom.current.value;
@@ -33,7 +43,6 @@ function Login() {
 
    return (
       <section className="login">
-        
          <div className="login__container">
             <form onSubmit={handleSubmit}>
                <div>
@@ -42,27 +51,32 @@ function Login() {
                      Don't have an account? <a href="">Create a new account</a>
                   </p>
 
-                  <input className="emailField"
+                  <input
+                     className="emailField"
                      type="email"
-                     placeholder="email address"
+                     placeholder="Email address"
                      ref={emailDom}
                   />
                </div>
                <br />
 
-               <div>
+               <div className="password__container">
                   <input
-                     type="password"
-                     placeholder="password"
+                     type={showPassword ? "text" : "password"}
+                     placeholder="Password"
                      ref={passwordDom}
                   />
-                  <p className="pass">
-                     <a href="">Forgot password?</a>
-                  </p>
+                  <span
+                     className="password-toggle-icon"
+                     onClick={togglePasswordVisibility}
+                  >
+                     {showPassword ? <GoEye /> : <GoEyeClosed />}
+                  </span>
+                  <span className="forget_pass">
+                     <a href="">Forgot password? </a>
+                  </span>
                </div>
-               <button type="submit">
-                  Login
-               </button>
+               <button type="submit">Login</button>
             </form>
          </div>
       </section>

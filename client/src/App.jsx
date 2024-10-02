@@ -1,10 +1,8 @@
-
-import React from 'react'
+import React from "react";
+import Home from "./Pages/Home/Home";
 
 function App() {
-  return (
-    <div><h1>EVANGADI FORUM</h1></div>
-  )
+  return <Home />;
 }
 
-export default App
+export default App;

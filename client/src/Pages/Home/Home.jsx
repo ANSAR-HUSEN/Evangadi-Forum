@@ -28,37 +28,41 @@ function Home() {
       </div>
       {/* user details section  */}
       <div className="user_container">
-        <div className="profile_container">
-          <div className="user_icon">
-            <AccountCircleIcon />
-            {/* user icon  */}
-            <p>sisay</p>
-            {/* user name  */}
-          </div>
-          <p className="question">javascript</p>
-          {/* user question */}
+        <a href="" className="link">
+          <div className="profile_container">
+            <div className="user_icon">
+              <AccountCircleIcon />
+              {/* user icon  */}
+              <p>sisay</p>
+              {/* user name  */}
+            </div>
+            <p className="question">javascript</p>
+            {/* user question */}
 
-          <div className="angle_icon">
-            <ChevronRightIcon />
-            {/* chevron icon for navigation  */}
+            <div className="angle_icon">
+              <ChevronRightIcon />
+              {/* chevron icon for navigation  */}
+            </div>
           </div>
-        </div>
+        </a>
       </div>
       <div className="horizontal_line">
         <hr />
       </div>
       <div className="user_container">
-        <div className="profile_container">
-          <div className="user_icon">
-            <AccountCircleIcon />
-            <p>nati</p>
-          </div>
-          <p className="question">what is jwt</p>
+        <a href="" className="link">
+          <div className="profile_container">
+            <div className="user_icon">
+              <AccountCircleIcon />
+              <p>nati</p>
+            </div>
+            <p className="question">what is jwt</p>
 
-          <div className="angle_icon">
-            <ChevronRightIcon />
+            <div className="angle_icon">
+              <ChevronRightIcon />
+            </div>
           </div>
-        </div>
+        </a>
       </div>
     </section>
   );

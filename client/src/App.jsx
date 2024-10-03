@@ -1,10 +1,12 @@
-
-import React from 'react'
+import React from "react";
+import SignUp from "./components/SignUp/SignUp";
 
 function App() {
   return (
-    <div><h1>EVANGADI FORUM</h1></div>
-  )
+    <div>
+      <SignUp />
+    </div>
+  );
 }
 
-export default App
+export default App;

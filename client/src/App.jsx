@@ -1,7 +1,15 @@
+import React from "react";
+
 
 import React, {useState } from 'react'
 import Footer from './components/footer/Footer'
 import QuestionPage from './components/questionPage/QuestionPage';
+
+
+import Home from "./Pages/Home/Home";
+
+
+import SignUp from "./components/SignUp/SignUp";
 
 
 function App() {
@@ -13,14 +21,18 @@ function App() {
   };
 
   return (
+
     <>
-      <div>
+      
         
-      </div>
-      <QuestionPage/>
-      <Footer />
+//      <SignUp />
+//     <Home />
+//       <QuestionPage/>
+//       <Footer />
     </>
+
+    
   );
 }
 
-export default App
+export default App;

@@ -1,10 +1,26 @@
+// src/App.jsx
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AnswerPage from './pages/AnswerPage';  
+import HomePage from './pages/HomePage';
 
-import React from 'react'
 
-function App() {
+
+const App = () => {
   return (
-    <div><h1>EVANGADI FORUM</h1></div>
-  )
-}
+    <Router>
+      <div>
+        {/* Define Routes for your application */}
+        <Routes>
+          {/* Route for the homepage */}
+          <Route path="/" element={<HomePage />} />
+          
+          {/* Route for the Answer page */}
+          <Route path="/questions/:id" element={<AnswerPage />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+};
 
-export default App
+export default App;

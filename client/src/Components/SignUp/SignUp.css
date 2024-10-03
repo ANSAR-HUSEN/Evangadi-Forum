@@ -51,13 +51,7 @@ form {
 .smallInput input {
   padding: 15px 21px;
   width: 100%;
-
-  /* box-sizing: border-box; */
-  /* width: 100%; */
-  /* margin-left: 10px; */
 }
-/* .smallInput input second {
-  /* margin-left: 15px; }*/
 
 input {
   border-radius: 8px;

@@ -11,6 +11,12 @@ import Home from "./Pages/Home/Home";
 
 import SignUp from "./components/SignUp/SignUp";
 
+import React from 'react'
+import Routing from './Routing'
+
+import { Router } from 'react-router-dom'
+
+
 
 function App() {
 
@@ -22,10 +28,13 @@ function App() {
 
   return (
 
+   
+
     <>
       
         
 //      <SignUp />
+//      <Routing />
 //     <Home />
 //       <QuestionPage/>
 //       <Footer />
@@ -33,6 +42,7 @@ function App() {
 
     
   );
+
 }
 
 export default App;

@@ -13,6 +13,7 @@ app.use(express.json());
 
 
 // User Routes middleware file
+const userRoutes = require('./routes/userRoutes');
 
 
 // Question Routes middleware file
@@ -20,8 +21,10 @@ app.use(express.json());
 
 // Answer Routes middleware file
 
-// user rotes middleware
 
+
+// user rotes middleware
+app.use('/api/users', userRoutes);
 
 // Use question routes
 

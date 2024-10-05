@@ -20,6 +20,7 @@ const userRoutes = require('./routes/userRoutes');
 
 
 // Answer Routes middleware file
+const answerRoutes = require('./routes/answerRoutes');
 
 
 
@@ -30,7 +31,7 @@ app.use('/api/users', userRoutes);
 
 
 // Use answer routes
-
+app.use('/api', answerRoutes)
 
 
 // Start server

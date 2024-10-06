@@ -1,6 +1,7 @@
 const { StatusCodes} = require('http-status-codes')
 const jwt = require('jsonwebtoken')
-
+const dotenv= require ('dotenv')
+dotenv.config();
 async function authMiddleware (req,res,next) {
 
     const authHeader = req.headers.authorization
@@ -15,7 +16,7 @@ async function authMiddleware (req,res,next) {
     console.log(token);    
 
     try {
-        const {username, userid} = jwt.verify(token, "secret")
+        const { username, userid } = jwt.verify(token, process.env.JWT_SECRET);
        
        // return res.status(StatusCodes.OK).json({data})//valid token passed 
        req.user = { username, userid } //req.user is a custom property and will pass to next()

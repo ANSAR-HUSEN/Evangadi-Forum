@@ -1,121 +1,56 @@
-//import mysql driver
-const mysql = require("mysql2");
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 5500;
 
-//import express
-const express = require("express");
-let cors = require("cors");
-let app = express();
+const cors = require('cors');
 app.use(cors());
-const PORT = 5500;
 
-//import db connection
+// Connect to database
+const dbConnection = require('./db/dbConfig');
 
-const dbConnection = require("./db/dbConfig");
-
-//user routes middleware file
-const userRoutes = require("./routes/userRoutes");
-
-//express middleware to extract json data
+// Middleware to parse JSON request body
 app.use(express.json());
 
-//user routes middleware
-app.use("/api/user", userRoutes);
 
-const bodyparser = require("body-parser");
+// User Routes middleware file
+const userRoutes = require('./routes/userRoutes');
 
-//question routes middleware ??
 
-//answer routes middleware ??
+// Question Routes middleware file
+const questionRoutes = require("./routes/questionRoutes");
 
+// Answer Routes middleware file
+const answerRoutes = require('./routes/answerRoutes');
+
+
+
+// user rotes middleware
+app.use('/api/users', userRoutes);
+
+// Use question routes
+
+
+// Use answer routes
+app.use('/api', answerRoutes)
+
+
+// Start server
 async function start() {
-   try {
-      const result = await dbConnection.execute("select  'test' ");
+  try {
 
-      await app.listen(PORT);
-      console.log("database connection esablished");
-      console.log(`Listening on ${PORT}`);
+    // Checking database connection
+    await dbConnection.execute("SELECT 1"); // Simple query to ensure DB connection
+    console.log("Database connection established");
 
-      console.log(result);
-   } catch (error) {
-      console.log(error.message);
-   }
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error connecting to the database:", error.message);
+    process.exit(1); // Exit the process if DB connection fails
+  }
 }
-start();
 
-//setting up mysql connection
-
-// const dbConnection = mysql.createConnection({
-//    host: "localhost",
-//    user: "myDBuser",
-//    password: "8497",
-//    database: "evangadi_forum",
-//    port: 3306,
-// });
-
-// Connect to the database
-// dbConnection.connect((err) => {
-//    if (err) {
-//       console.error("Error connecting to evangadi_forum: ", err);
-//    } else {
-//       console.log("Connected to evangadi_forum database.");
-//    }
-// });
-
-// app.get("/install", (req, res) => {
-//    let message = "Tables Created";
-//    //Registration Table
-
-//    let createTableUser = `CREATE TABLE if not exists User(
-//     userid INT(20) NOT NULL AUTO_INCREMENT,
-//     username VARCHAR(20) NOT NULL,
-//     firstname VARCHAR(20) NOT NULL,
-//     lastname VARCHAR(20) NOT NULL,
-//     email VARCHAR(40) NOT NULL,
-//     password VARCHAR(100) NOT NULL,
-//     PRIMARY KEY (userid)
-
-// )`;
-//    //Question Table
-//    let createTableQuestion = `CREATE TABLE if not exists Question(
-//     id INT(20) NOT NULL AUTO_INCREMENT,
-//     questionid VARCHAR(100) NOT NULL UNIQUE,
-//     userid INT(20) NOT NULL,
-//     title VARCHAR(50) NOT NULL,
-//     description VARCHAR(200) NOT NULL,
-//     tag VARCHAR(20),
-//     PRIMARY KEY (id, questionid),
-//     FOREIGN KEY (userid) REFERENCES User(userid)
-
-//   )`;
-
-//    //Answer Table
-
-//    let createTableAnswer = `CREATE TABLE if not exists Answer(
-//     answerid INT NOT NULL AUTO_INCREMENT ,
-//     userid INT(20) NOT NULL,
-//     questionid VARCHAR(100) NOT NULL,
-//     answer VARCHAR(200) NOT NULL,
-//     PRIMARY KEY (answerid),
-//     FOREIGN KEY (questionid) REFERENCES question(questionid),
-//     FOREIGN KEY (userid) REFERENCES user(userid)
-
-// )`;
-
-//    // Execute SQL statements
-//    dbConnection.query(createTableUser, (err, result) => {
-//       if (err) throw err;
-//       console.log("User table created.");
-//    });
-
-//    dbConnection.query(createTableQuestion, (err, result) => {
-//       if (err) throw err;
-//       console.log("Question table created.");
-//    });
-
-//    dbConnection.query(createTableAnswer, (err, result) => {
-//       if (err) throw err;
-//       console.log("Answer table created.");
-//    });
-
-//    res.send(message);
-// });
+// Start the server
+start()

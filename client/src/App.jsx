@@ -11,10 +11,14 @@ import Home from "./Pages/Home/Home";
 
 import SignUp from "./components/SignUp/SignUp";
 
-import React from 'react'
+
+
+import Header from './componet/header/header'
+
 import Routing from './Routing'
 
 import { Router } from 'react-router-dom'
+
 
 
 
@@ -28,20 +32,22 @@ function App() {
 
   return (
 
+
    
 
     <>
       
-        
+          <Header/>
 //      <SignUp />
 //      <Routing />
-//     <Home />
+    <Home />
 //       <QuestionPage/>
-//       <Footer />
+      <Footer />
     </>
 
     
   );
+
 
 }
 

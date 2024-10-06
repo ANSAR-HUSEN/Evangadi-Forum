@@ -1,60 +1,64 @@
-//db connection
 const dbConnection = require("../db/dbConfig");
-
 const bcrypt = require("bcrypt");
 const { StatusCodes} = require('http-status-codes') //https status codes 
-const jwt = require('jsonwebtoken')//for web tokens 
+const jwt = require('jsonwebtoken')//for web tokens
 
-async function register(req, res) {
+const dotenv = require("dotenv");
+dotenv.config();
+
+// Register a new user
+async function registerUser(req, res) {
    const { username, firstname, lastname, email, password } = req.body;
 
-   if (!email || !password || !firstname || !lastname || !username) {
+   // check fiels are not empty
+   if (!username || !firstname || !lastname || !email || !password) {
       return res
-         .status(StatusCodes.BAD_REQUEST)
-         .json({ msg: "Please provide all required information" });
+         .status(400)
+         .json({ message: "Please provide all required fields" });
    }
-   try {
-      //check if user exists
 
+   try {
+      // check if user already exists
       const [user] = await dbConnection.query(
-         "SELECT username,userid from user WHERE username=? OR email=?",
+         "SELECT username, email FROM users WHERE username =? OR email =?",
          [username, email]
       );
-      // return res.json({user: user})
-
       if (user.length > 0) {
-         return res.status(StatusCodes.BAD_REQUEST).json({
-            msg: "User is already registered",
-         });
-      }
-      //validate password length
-
-      if (password.length <= 8) {
-         return res.status(StatusCodes.BAD_REQUEST).json({
-            msg: "Password must be at least 8 characters",
+         return res.status(409).json({
+            error: "Conflict",
+            message: "User already existed",
          });
       }
 
-      //encrypt the password
+      //check if password is at least 8 characters long
+      if (password.length < 8) {
+         return res.status(400).json({
+            error: "Bad Request",
+            message: "Password must be at least 8 characters long",
+         });
+      }
+
+      // generate hash of password
       const salt = await bcrypt.genSalt(10);
-
       const hashedPassword = await bcrypt.hash(password, salt);
-      //hashed password is fowarded to the db
 
-      //resgister user if accoundt doesn't exist ---> enter user data into the user table
+      // Insert user into database
       await dbConnection.query(
-         "INSERT INTO user (username, firstname, lastname, email, password) VALUES (?,?,?,?,?) ",
+         "INSERT INTO users (username, firstname, lastname, email, password) VALUES (?,?,?,?,?)",
          [username, firstname, lastname, email, hashedPassword]
       );
-
-      return res.status(StatusCodes.CREATED).json({ msg: "User created" });
+      return res.status(201).json({
+         message: "User registered successfully",
+      });
    } catch (error) {
-      console.log(error.message);
-      return res
-         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-         .json({ msg: "Something went wrong, please try again later" });
+      console.error("Error while registering user: ", error);
+      return res.status(500).json({
+         error: "Internal Server Error",
+         message: "Something went wrong",
+      });
    }
 }
+
 //Login section 
 async function login(req, res) {
    const { email, password} = req.body;
@@ -118,4 +122,6 @@ async function checkUser(req, res) {
 
 //these functions need to be exported to be used by useRouter
 //functions are exported as an object using {}
-module.exports = { register, login, checkUser };
+module.exports = { registerUser, login, checkUser };
+
+

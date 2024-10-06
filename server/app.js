@@ -17,7 +17,7 @@ const userRoutes = require('./routes/userRoutes');
 
 
 // Question Routes middleware file
-
+const questionRoutes = require("./routes/questionRoutes");
 
 // Answer Routes middleware file
 const answerRoutes = require('./routes/answerRoutes');

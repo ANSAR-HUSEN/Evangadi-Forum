@@ -1,12 +1,26 @@
-const express = require('express');
-
-//Creating a router instance
+const express = require("express");
 const router = express.Router();
 
-//Importing the user controller
-const { registerUser } = require('../controller/userController');
+//authentication middleware
+const authMiddleware = require("../middleware/authMiddleware");
 
-//defining the routes
-router.post('/register', registerUser);
+//import user controller functions from userController component
+
+const {
+   registerUser,
+   login,
+   checkUser,
+} = require("../controller/userController");
+
+//register routes
+
+//register, login and checkUser are functions and are defined in the controller component
+router.post("/register", registerUser);
+
+//login user
+router.post("/login", login);
+
+//check user
+router.get("/check", authMiddleware, checkUser);
 
 module.exports = router;

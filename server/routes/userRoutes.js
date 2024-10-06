@@ -10,3 +10,4 @@ const { registerUser } = require('../controller/userController');
 router.post('/register', registerUser);
 
 module.exports = router;
+

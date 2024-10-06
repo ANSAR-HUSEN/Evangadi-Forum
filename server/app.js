@@ -1,38 +1,56 @@
-const express = require("express");
-// const cors = require("cors");
+const express = require('express');
 const app = express();
-const port = process.env.PORT || 5000;
-const dbConnection = require("./db/dbConfig");
+const PORT = process.env.PORT || 5500;
 
-//middleware to parse JSON requests
+const cors = require('cors');
+app.use(cors());
+
+// Connect to database
+const dbConnection = require('./db/dbConfig');
+
+// Middleware to parse JSON request body
 app.use(express.json());
 
-//user routes middleware file
-const userRoutes = require("./routes/userRoute");
 
-//user routes middleware
-app.use("/api/users", userRoutes);
+// User Routes middleware file
+const userRoutes = require('./routes/userRoutes');
 
-//questions routes middleware
-const questionsRoutes = require("./routes/questionRoute");
-app.use("/api/question", questionsRoutes);
 
+// Question Routes middleware file
+
+
+// Answer Routes middleware file
+const answerRoutes = require('./routes/answerRoutes');
+
+
+
+// user rotes middleware
+app.use('/api/users', userRoutes);
+
+// Use question routes
+
+
+// Use answer routes
+app.use('/api', answerRoutes)
+
+
+// Start server
 async function start() {
   try {
-    //to start database connection
-    const result = await dbConnection.execute("SELECT'test'");
-    console.log("database connection is established");
 
-    //to start the server after the db is connected
-    app.listen(port, () => {
-      console.log(`Listening on port ${port}`);
+    // Checking database connection
+    await dbConnection.execute("SELECT 1"); // Simple query to ensure DB connection
+    console.log("Database connection established");
+
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
     });
-    // app.listen(port);
-    // console.log(`Listening on port ${port}`);
   } catch (error) {
-    console.log(error.message);
+    console.error("Error connecting to the database:", error.message);
+    process.exit(1); // Exit the process if DB connection fails
   }
 }
-start();
 
-//answers routes middleware
+// Start the server
+start()

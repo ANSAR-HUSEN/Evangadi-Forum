@@ -1,21 +1,25 @@
-const mysql = require("mysql2");
-const dotenv = require("dotenv")
+const mysql2 = require('mysql2');
+const dotenv = require('dotenv');
+dotenv.config();
 
-dotenv.config()
-//Creating connection to the database
-const dbConnection = mysql.createPool({
+// Create the connection pool
+const dbConnection = mysql2.createPool({
   user: process.env.DB_USER,
+  database: process.env.MYSQL_DB,
+  port: process.env.DB_PORT || 3306, // Use the correct DB port
   host: process.env.DB_HOST,
   password: process.env.DB_PASS,
-  database: process.env.MYSQL_DB,
-  connectionLimit: 10,
+  connectionLimit: 10, // Limit connections to 10
 });
 
-// mysqlConnection.execute("select 'test' ", (err, result) => {
+// // Test the connection (optional but useful)
+// dbConnection.getConnection((err, connection) => {
 //   if (err) {
-//     console.log(err.message);
+//     console.error("Error connecting to the database:", err.message);
 //   } else {
-//     console.log(result);
+//     console.log("Database connected successfully!");
+//     connection.release(); // Release the connection back to the pool
 //   }
 // });
-module.exports = dbConnection.promise();
+
+module.exports = dbConnection.promise(); // Use promises to make queries async/await friendly

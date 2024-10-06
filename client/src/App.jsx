@@ -12,6 +12,16 @@ import Home from "./Pages/Home/Home";
 import SignUp from "./components/SignUp/SignUp";
 
 
+
+import Header from './componet/header/header'
+
+import Routing from './Routing'
+
+import { Router } from 'react-router-dom'
+
+
+
+
 function App() {
 
   const [answers, setAnswers] = useState([]);
@@ -22,17 +32,23 @@ function App() {
 
   return (
 
+
+   
+
     <>
       
-        
+          <Header/>
 //      <SignUp />
-//     <Home />
+//      <Routing />
+    <Home />
 //       <QuestionPage/>
-//       <Footer />
+      <Footer />
     </>
 
     
   );
+
+
 }
 
 export default App;

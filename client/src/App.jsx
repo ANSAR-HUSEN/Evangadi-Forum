@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Routing from "./Routing";
+import AppRouter from "./Router";
 
 function App() {
   const [answers, setAnswers] = useState([]);
@@ -9,10 +10,12 @@ function App() {
     setAnswers((prevAnswers) => [...prevAnswers, answer]);
   };
 
-  return <>
-  <Routing/>
-  
-  </>;
+  return (
+    <>
+      {/* <Routing/> */}
+      <AppRouter />
+    </>
+  );
 }
 
 export default App;

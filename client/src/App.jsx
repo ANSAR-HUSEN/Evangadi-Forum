@@ -1,26 +1,21 @@
-// src/App.jsx
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import AnswerPage from './pages/AnswerPage';  
-import HomePage from './pages/HomePage';
+import React, { useState } from "react";
 
+import Routing from "./Routing";
+import AppRouter from "./Router";
 
+function App() {
+  const [answers, setAnswers] = useState([]);
 
-const App = () => {
+  const handlePostAnswer = (answer) => {
+    setAnswers((prevAnswers) => [...prevAnswers, answer]);
+  };
+
   return (
-    <Router>
-      <div>
-        {/* Define Routes for your application */}
-        <Routes>
-          {/* Route for the homepage */}
-          <Route path="/" element={<HomePage />} />
-          
-          {/* Route for the Answer page */}
-          <Route path="/questions/:id" element={<AnswerPage />} />
-        </Routes>
-      </div>
-    </Router>
+    <>
+      {/* <Routing/> */}
+      <AppRouter />
+    </>
   );
-};
+}
 
 export default App;

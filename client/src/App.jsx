@@ -7,6 +7,12 @@ import { useEffect, useState, createContext } from 'react';
 import axios from './axiosConfig';
 
 function App() {
+  const [answers, setAnswers] = useState([]);
+
+  const handlePostAnswer = (answer) => {
+    setAnswers((prevAnswers) => [...prevAnswers, answer]);
+  };
+
   //to protect our home
   const [user, setuser] = useState([]);
   const token = localStorage.getItem('token');
@@ -40,6 +46,25 @@ function App() {
 
   // return( <Home />;
   // );
-}
 
-export default App;
+// import Routing from "./Routing";
+
+
+// function App() {
+//   const [answers, setAnswers] = useState([]);
+
+//   const handlePostAnswer = (answer) => {
+//     setAnswers((prevAnswers) => [...prevAnswers, answer]);
+//   };
+
+//   return (
+//     <>
+//       <Routing/>
+
+    
+
+//     </>
+//   );
+// }
+
+// export default App;

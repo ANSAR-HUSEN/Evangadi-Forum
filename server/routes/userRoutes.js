@@ -1,37 +1,26 @@
-//enter place
-//api endpoint
 const express = require("express");
-// const {register, login, checkUser} = require("../controller/userController");
-// const { register } = require('module');
 const router = express.Router();
 
-//authonthication middleware
+//authentication middleware
 const authMiddleware = require("../middleware/authMiddleware");
 
-// // App.post("api/users/login",(req,res)=>{
-// //     res.send("login");
-// // })
+//import user controller functions from userController component
 
-//user controllers
-const { register, login, checkUser } = require("../controller/userController");
+const {
+   registerUser,
+   login,
+   checkUser,
+} = require("../controller/userController");
 
-// //register route
-// router.post("/register",(req, res)=>{
-//     res.send("register user")
-// })
-router.post("/register", register);
+//register routes
 
-// //login user(for email and password)
-// router.post("/login", (req, res) => {
-//   res.send("login user");
-// });//it's send data of email and password
+//register, login and checkUser are functions and are defined in the controller component
+router.post("/register", registerUser);
+
+//login user
 router.post("/login", login);
 
-// //check user (route)
-// router.get("/check", (req, res) => {
-//   res.send("check user");
-// });
-
+//check user
 router.get("/check", authMiddleware, checkUser);
 
 module.exports = router;

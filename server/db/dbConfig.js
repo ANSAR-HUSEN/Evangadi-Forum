@@ -10,7 +10,6 @@ const dbConnection = mysql2.createPool({
   host: process.env.DB_HOST,
   password: process.env.DB_PASS,
   connectionLimit: 10, // Limit connections to 10
-  
 });
 
 // // Test the connection (optional but useful)

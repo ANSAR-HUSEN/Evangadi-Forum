@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import "./Home.css";
-
+import {AppState} from "../App";
 //main home page
 function Home() {
+  const {user} = useContext(AppState);
+ 
+
+  
   return (
+    
     <section className="home_container">
       {/* button container for asking questions and welcoming the user  */}
       <div className="btn_container">
@@ -14,7 +19,7 @@ function Home() {
           <button className="ask_blue">Ask Question</button>
         </a>
         <p>
-          welcome: <span>user</span>
+          welcome: <span>{user.username}</span>
           {/* greeting the username  */}
         </p>
       </div>

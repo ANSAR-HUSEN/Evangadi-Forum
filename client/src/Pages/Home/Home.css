@@ -18,11 +18,12 @@
 }
 /* styles for ask question button  */
 .ask_blue {
-  background-color: #0c6efd;
+  background-color: var(--primary-button);
   color: white;
   border: none;
   cursor: pointer;
   padding: 7px;
+  border-radius: 5px;
 }
 
 .btn_container p {

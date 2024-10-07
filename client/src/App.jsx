@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import Routing from "./Routing";
 
-
 function App() {
   const [answers, setAnswers] = useState([]);
 
@@ -12,10 +11,7 @@ function App() {
 
   return (
     <>
-      <Routing/>
-
-    
-
+      <Routing />
     </>
   );
 }

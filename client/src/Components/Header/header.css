@@ -1,0 +1,45 @@
+.header__container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 0;
+   
+    background-color: #fff;
+    
+}
+.header__logo {
+    margin-left: 5%;
+}
+.header__menu ul {
+    display: flex;
+    align-items: center;
+   
+   
+}
+.header__menu ul li {
+    list-style: none;
+    padding-left: 15px;
+
+}
+.header__menu ul li a:hover{
+    color: var( --primary-color);
+}
+.header__menu ul li a {
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+}
+.header__menu button{
+    width: 10vw;
+    padding: 7px;
+    background-color: var(--primary-button);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.header__menu button:hover{
+    background-color: var(--primary-color);
+}
+.header__menu{
+    margin-right: 7%;
+}

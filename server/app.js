@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5500;
-
 const cors = require('cors');
 app.use(cors());
 
@@ -14,24 +13,15 @@ app.use(express.json());
 
 // User Routes middleware file
 const userRoutes = require('./routes/userRoutes');
-
+app.use('/api/users', userRoutes);
 
 // Question Routes middleware file
-
+const questionsRoutes = require("./routes/questionRoutes");
+app.use("/api", questionsRoutes);
 
 // Answer Routes middleware file
 const answerRoutes = require('./routes/answerRoutes');
-
-
-
-// user rotes middleware
-app.use('/api/users', userRoutes);
-
-// Use question routes
-
-
-// Use answer routes
-app.use('/api', answerRoutes)
+app.use("/api", answerRoutes);
 
 
 // Start server

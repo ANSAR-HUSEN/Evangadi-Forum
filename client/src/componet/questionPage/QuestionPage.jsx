@@ -51,12 +51,12 @@ function QuestionPage() {
         </form>
         <div className="posted_questions">
             {/* //this will just post the question underneath the form */}
-          {questions.map((question, index) => (
+          {/* {questions.map((question, index) => (
             <div key={index} className="posted-question">
               <h3>{question.title}</h3>
               <p>{question.description}</p>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

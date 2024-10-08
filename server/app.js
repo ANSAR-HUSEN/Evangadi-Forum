@@ -1,24 +1,21 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 5500;
 
-const cors = require('cors');
+const cors = require("cors");
 app.use(cors());
 
 // Connect to database
-const dbConnection = require('./db/dbConfig');
+const dbConnection = require("./db/dbConfig");
 
 // Middleware to parse JSON request body
 app.use(express.json());
 
-
 // User Routes middleware file
-const userRoutes = require('./routes/userRoutes');
-
+const userRoutes = require("./routes/userRoutes");
 
 // Question Routes middleware file
 const questionRoutes = require("./routes/questionRoutes");
-
 
 // Answer Routes middleware file
 const answerRoutes = require("./routes/answerRoutes");
@@ -27,11 +24,13 @@ const answerRoutes = require("./routes/answerRoutes");
 app.use("/api/users", userRoutes);
 
 // Use question routes
-app.use("/api",questionRoutes);
-
+app.use("/api", questionRoutes);
 
 // Use answer routes
 app.use("/api", answerRoutes);
+app.use("/", (req, res)=>{
+  return res.send("hello");
+})
 
 // Start server
 async function start() {
@@ -51,4 +50,4 @@ async function start() {
 }
 
 // Start the server
-start()
+start();

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { GoEyeClosed, GoEye } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 function Login() {
    //useNavigate --->to re-direct user to homepage after successful login
@@ -48,7 +49,7 @@ function Login() {
                <div>
                   <h3>Login to your account</h3>
                   <p>
-                     Don't have an account? <a href="">Create a new account</a>
+                     Don't have an account? <a href="/register">Create a new account</a>
                   </p>
 
                   <input
@@ -79,6 +80,8 @@ function Login() {
                <button type="submit">Login</button>
             </form>
          </div>
+         {/* <Link to={"register"}>register</Link> */}
+         {/* this going to one path to one path (register)  */}
       </section>
    );
 }

@@ -13,15 +13,16 @@ import QuestionDisplay from './Components/QuestionDisplay';
 
 function Routing() {
   return (
-     <div>
-        <Routes>
-           <Route path="/" element={<Home />} />
-           <Route path="/login" element={<About />} />
-           <Route path="/register" element={<SignUp/>} />
-           <Route path="/questionPage" element={<QuestionPage/>} />
-           {/* <Route path="/questionDetail" element={<QuestionDisplay/>} /> */}
-        </Routes>
-     </div>
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<About />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/questionPage" element={<QuestionPage />} />
+        {/* <Route path="/register" element={<Register />} /> */}
+        {/* <Route path="/questionDetail" element={<QuestionDisplay/>} /> */}
+      </Routes>
+    </div>
   );
 }
 

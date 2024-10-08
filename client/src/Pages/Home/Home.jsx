@@ -1,16 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import "./Home.css";
 import LayOut from "../Layout/LayOut";
 import { Link } from "react-router-dom";
+import axios from "../../axios";
+import QuestionCard from "../../Components/QuestionCard/QuestionCard";
+// import { AppState } from "../../App";
 
 //main home page
 function Home() {
-  const {user} = useContext(AppState);
- 
-
+  // const {user} = useContext(AppState);//how send globally
+  // console.log(user);
   
+  const [question, setQuestion] = useState([]);
+
+  useEffect(() => {
+    axios.get("/question").then((res) => {
+      console.log(res);
+      setQuestion(res.data);
+
+      const questionData = res.data;
+    });
+  }, []);
+
   return (
     <LayOut>
       <section className="home_container">
@@ -21,7 +34,7 @@ function Home() {
             <button className="ask_blue">Ask Question</button>
           </Link>
           <p>
-            welcome: <span>user</span>
+            welcome: <span>username-user</span>
             {/* greeting the username  */}
           </p>
         </div>
@@ -34,43 +47,10 @@ function Home() {
           <hr />
         </div>
         {/* user details section  */}
-        <div className="user_container">
-          <a href="/" className="link">
-            <div className="profile_container">
-              <div className="user_icon">
-                <AccountCircleIcon />
-                {/* user icon  */}
-                <p>sisay</p>
-                {/* user name  */}
-              </div>
-              <p className="question">javascript</p>
-              {/* user question */}
-
-              <div className="angle_icon">
-                <ChevronRightIcon />
-                {/* chevron icon for navigation  */}
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="horizontal_line">
-          <hr />
-        </div>
-        <div className="user_container">
-          <a href="" className="link">
-            <div className="profile_container">
-              <div className="user_icon">
-                <AccountCircleIcon />
-                <p>nati</p>
-              </div>
-              <p className="question">what is jwt</p>
-
-              <div className="angle_icon">
-                <ChevronRightIcon />
-              </div>
-            </div>
-          </a>
-        </div>
+        {question.map((question, i) => {
+          return <QuestionCard data={question} key={i} />;
+        })}
+    
       </section>
     </LayOut>
   );

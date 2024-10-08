@@ -17,10 +17,11 @@ const {
 //register, login and checkUser are functions and are defined in the controller component
 router.post("/register", registerUser);
 
+
 //login user
 router.post("/login", login);
 
 //check user
-router.get("/check", authMiddleware, checkUser);
+router.get("/check", authMiddleware, checkUser);//for home protector(it send user)
 
 module.exports = router;

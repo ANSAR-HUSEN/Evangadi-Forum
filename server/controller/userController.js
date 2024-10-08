@@ -1,7 +1,6 @@
 const dbConnection = require('../db/dbConfig')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 const dotenv = require('dotenv');
 dotenv.config()
 
@@ -9,7 +8,7 @@ dotenv.config()
 async function registerUser(req, res) {
   const { username, firstname, lastname, email, password } = req.body;
 
-  // check fiels are not empty
+  // check fields are not empty
   if (!username || !firstname || !lastname || !email || !password) {
     return res.status(400).json({  "message": "Please provide all required fields" });
   }
@@ -59,7 +58,7 @@ async function login(req, res){
   }
   try{
     const [user] = await dbConnection.query("SELECT username, userid, password FROM users WHERE email = ?", [email])
-    if(user.length == 0){
+    if(user.length === 0){
       return res.status(400).json({message: "Invalid credential"});
     }
      //compare password 
@@ -70,7 +69,9 @@ async function login(req, res){
 
      const username = user[0].username
      const userid = user[0].userid
-     const token = jwt.sign({username, userid}, "secret", {expiresIn:"1d"})
+     const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
+       expiresIn: "1d",
+     });
 
      
      return res.status(200).json({message:"user logged in successfully", token})

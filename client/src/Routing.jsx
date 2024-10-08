@@ -2,7 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
-import Home from './Pages/Home';
+import Home from './Pages/Home/Home';
+import QuestionPage from "./Components/questionPage/QuestionPage"
 
 
 function Routing() {

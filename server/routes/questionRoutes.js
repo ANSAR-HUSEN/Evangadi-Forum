@@ -10,6 +10,6 @@ const router = express.Router();
 // API endpoints
 router.post("/question", authMiddleware, postQuestion);
 
-router.get("all-question", authMiddleware, getAllQuestion);
+router.get("/all-question", authMiddleware, getAllQuestion);
 
 module.exports = router;

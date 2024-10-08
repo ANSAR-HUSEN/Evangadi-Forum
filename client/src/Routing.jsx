@@ -19,7 +19,7 @@ function Routing() {
            <Route path="/login" element={<About />} />
            <Route path="/register" element={<SignUp/>} />
            <Route path="/questionPage" element={<QuestionPage/>} />
-           {/* <Route path="/questionDetail" element={<QuestionDisplay/>} /> */}
+           <Route path="/questionDetail" element={<QuestionDisplay/>} />
         </Routes>
      </div>
   );

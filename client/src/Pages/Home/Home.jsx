@@ -7,6 +7,17 @@ import { Link } from "react-router-dom";
 
 //main home page
 function Home() {
+
+
+
+
+
+
+
+
+
+
+
   return (
     <LayOut>
       <section className="home_container">
@@ -31,7 +42,7 @@ function Home() {
         </div>
         {/* user details section  */}
         <div className="user_container">
-          <a href="/" className="link">
+          <Link to="/questionDetail" className="link">
             <div className="profile_container">
               <div className="user_icon">
                 <AccountCircleIcon />
@@ -47,7 +58,7 @@ function Home() {
                 {/* chevron icon for navigation  */}
               </div>
             </div>
-          </a>
+          </Link>
         </div>
         <div className="horizontal_line">
           <hr />

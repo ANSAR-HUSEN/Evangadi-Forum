@@ -48,7 +48,7 @@ function Login() {
                <div>
                   <h3>Login to your account</h3>
                   <p>
-                     Don't have an account? <a href="">Create a new account</a>
+                     Don't have an account? <a href="/register">Create a new account</a>
                   </p>
 
                   <input

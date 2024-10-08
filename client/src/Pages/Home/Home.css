@@ -47,6 +47,9 @@
   flex-direction: column;
   margin-left: 9%;
 }
+.user_container a:hover {
+  text-decoration: none;
+}
 /* user icon styles  */
 .user_icon svg {
   font-size: 60px;
@@ -81,6 +84,7 @@
   margin-top: 35px;
   padding-right: 40%;
 }
+
 
 .link{
   text-decoration: none;

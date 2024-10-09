@@ -1,9 +1,6 @@
 import React, { useEffect, useState, createContext } from "react";
 
 import Routing from "./Routing";
-import { useNavigate } from "react-router-dom";
-
-const AppState = createContext();
 
 function App() {
   const [answers, setAnswers] = useState([]);
@@ -35,9 +32,9 @@ function App() {
   }, []);
 
   return (
-    <AppState.Provider value={{ user, setUser }}>
+    <>
       <Routing />
-    </AppState.Provider>
+    </>
   );
 }
 

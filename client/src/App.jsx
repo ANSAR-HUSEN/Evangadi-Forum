@@ -1,5 +1,6 @@
 import React, {useEffect, useState } from 'react'
 import Routing from './Routing'
+import { useNavigate } from 'react-router-dom';
 // import { Router } from 'react-router-dom'
 
 
@@ -10,7 +11,7 @@ function App() {
   const [answers, setAnswers] = useState([]);
   const [user, setUser] = useState();
   const token = localStorage.getItem("token");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handlePostAnswer = (answer) => {
     setAnswers((prevAnswers) => [...prevAnswers, answer]);
@@ -27,7 +28,7 @@ function App() {
     } catch (error) {
       console.log(error.response);
       // navigate("/register");
-      // navigate("/login");
+      navigate("/login");
     }
   }
 

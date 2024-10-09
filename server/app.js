@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const app = express();
 
 const cors = require('cors');
@@ -8,10 +8,11 @@ const PORT = process.env.PORT || 5501;
 app.use(cors());
 
 // Connect to database
-const dbConnection = require("./db/dbConfig");
+const dbConnection = require('./db/dbConfig');
 
 // Middleware to parse JSON request body
 app.use(express.json());
+
 
 // User Routes middleware file
 const userRoutes = require('./routes/userRoutes');
@@ -34,16 +35,19 @@ const questionRoutes = require("./routes/questionRoutes");
 // const answerRoutes = require("./routes/answerRoutes");
 
 // user rotes middleware
-app.use("/api/users", userRoutes);
+app.use('/api/users', userRoutes);
 
 // Use question routes
 
+
 // Use answer routes
-app.use("/api", answerRoutes);
+app.use('/api', answerRoutes)
+
 
 // Start server
 async function start() {
   try {
+
     // Checking database connection
     await dbConnection.execute("SELECT 1"); // Simple query to ensure DB connection
     console.log("Database connection established");
@@ -59,4 +63,4 @@ async function start() {
 }
 
 // Start the server
-start();
+start()

@@ -6,10 +6,10 @@ dotenv.config();
 const dbConnection = mysql2.createPool({
   user: process.env.DB_USER,
   database: process.env.MYSQL_DB,
-  port: process.env.DB_PORT || 3306, // Use the correct DB port
+  port: process.env.DB_PORT || 3306,
   host: process.env.DB_HOST,
   password: process.env.DB_PASS,
-  connectionLimit: 10, // Limit connections to 10
+  connectionLimit: 10,
 });
 
 // // Test the connection (optional but useful)

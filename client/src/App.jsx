@@ -1,6 +1,10 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, {useEffect, useState } from 'react'
+import Routing from './Routing'
+// import { Router } from 'react-router-dom'
 
-import Routing from "./Routing";
+
+
+// import Routing from "./Routing";
 
 function App() {
   const [answers, setAnswers] = useState([]);

@@ -2,7 +2,7 @@
 
 import React, {useState } from 'react'
 import Footer from './components/footer/Footer'
-import QuestionPage from './components/questionPage/QuestionPage';
+
 
 
 import Home from "./Pages/Home/Home";

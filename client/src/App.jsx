@@ -20,9 +20,9 @@ import { Router } from 'react-router-dom'
 
 
 
+import Routing from "./Routing";
 
 function App() {
-
   const [answers, setAnswers] = useState([]);
 
   const handlePostAnswer = (answer) => {
@@ -30,24 +30,10 @@ function App() {
   };
 
   return (
-
-
-   
-
     <>
-      
-          <Header/>
-//      <SignUp />
-//      <Routing />
-    <Home />
-//       <QuestionPage/>
-      <Footer />
+      <Routing />
     </>
-
-    
   );
-
-
 }
 
 export default App;

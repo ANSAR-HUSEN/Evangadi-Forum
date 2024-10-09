@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./questionPage.css";
-import axios from "axios"
-import KeywordExtractor from "keyword-extractor";
+import LayOut from "../../Pages/Layout/LayOut";
 
 
 function QuestionPage() {
@@ -44,49 +43,52 @@ function QuestionPage() {
   //get all questions
 
   return (
-    <div>
-      <div className="steps_toFollow">
-        <h2>Steps to write a good question</h2>
-        <ul>
-          <li>Summerize your problem in a one-line title.</li>
-          <li>Describe your problem in more detail.</li>
-          <li>Describe what you tried and what you expected to happen.</li>
-          <li>Review your question and post it to the site.</li>
-        </ul>
-      </div>
+   <LayOut>
+     <div>
 
-      <div className="question_form">
-        <div className="question_title">
-          <h2>Ask the Public your Question</h2>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          {/* title and description updates with the new value entered by the user */}
-          <textarea
-            placeholder="Question Description..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+<div className="steps_toFollow">
+  <h2>Steps to write a good question</h2>
+  <ul>
+    <li>Summerize your problem in a one-line title.</li>
+    <li>Describe your problem in more detail.</li>
+    <li>Describe what you tried and what you expected to happen.</li>
+    <li>Review your question and post it to the site.</li>
+  </ul>
+</div>
 
-          <button type="submit">Post Your Question</button>
-        </form>
-        <div className="posted_questions">
-          {questions.map((question) => (
-            <div key={question.questionId}>
-              <h3>{question.title}</h3>
-              <p>{question.description}</p>
-              <p> {question.username}</p>
-              <p>{question.tag}</p>
-            </div>
-          ))}
-        </div>
+
+<div className="question_form">
+  <div className="question_title">
+    <h2>Ask a Public Question</h2>
+    
+  </div>
+  <form onSubmit={handleSubmit}>
+    <input
+      type="text"
+      placeholder="Title"
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+    />
+    {/* title and description updates with the new value entered by the user */}
+    <textarea
+      placeholder="Question Description..."
+      value={description}
+      onChange={(e) => setDescription(e.target.value)}
+    />
+    <button type="submit">Post Your Answer</button>
+  </form>
+  <div className="posted_questions">
+      {/* //this will just post the question underneath the form */}
+    {questions.map((question, index) => (
+      <div key={index} className="posted-question">
+        <h3>{question.title}</h3>
+        <p>{question.description}</p>
       </div>
-    </div>
+    ))}
+  </div>
+</div>
+</div>
+   </LayOut>
   );
 }
 

@@ -6,7 +6,7 @@ function App() {
   const [answers, setAnswers] = useState([]);
   const [user, setUser] = useState();
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handlePostAnswer = (answer) => {
     setAnswers((prevAnswers) => [...prevAnswers, answer]);

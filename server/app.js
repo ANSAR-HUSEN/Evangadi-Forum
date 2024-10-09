@@ -1,7 +1,12 @@
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 5500;
 
+<<<<<<< HEAD
+=======
+const cors = require('cors');
+const PORT = process.env.PORT || 5501;
+
+>>>>>>> main
 const cors = require("cors");
 app.use(cors());
 
@@ -12,6 +17,20 @@ const dbConnection = require("./db/dbConfig");
 app.use(express.json());
 
 // User Routes middleware file
+<<<<<<< HEAD
+=======
+const userRoutes = require('./routes/userRoutes');
+app.use('/api/users', userRoutes);
+
+// Question Routes middleware file
+const questionsRoutes = require("./routes/questionRoutes");
+app.use("/api", questionsRoutes);
+
+// Answer Routes middleware file
+const answerRoutes = require('./routes/answerRoutes');
+app.use("/api", answerRoutes);
+
+>>>>>>> main
 const userRoutes = require("./routes/userRoutes");
 
 // Question Routes middleware file
@@ -24,6 +43,7 @@ const answerRoutes = require("./routes/answerRoutes");
 app.use("/api/users", userRoutes);
 
 // Use question routes
+<<<<<<< HEAD
 app.use("/api", questionRoutes);
 
 // Use answer routes
@@ -31,6 +51,11 @@ app.use("/api", answerRoutes);
 app.use("/", (req, res)=>{
   return res.send("hello");
 })
+=======
+
+// Use answer routes
+app.use("/api", answerRoutes);
+>>>>>>> main
 
 // Start server
 async function start() {

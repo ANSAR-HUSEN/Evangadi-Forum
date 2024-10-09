@@ -1,16 +1,18 @@
-const dbConnection = require("../db/dbConfig");
-const bcrypt = require("bcrypt");
-const { StatusCodes } = require("http-status-codes"); //https status codes
-const jwt = require("jsonwebtoken"); //for web tokens
+const dbConnection = require('../db/dbConfig')
+const bcrypt = require('bcrypt')
 
-const dotenv = require("dotenv");
-dotenv.config();
+const dotenv = require('dotenv');
+dotenv.config()
 
 // Register a new user
 async function registerUser(req, res) {
   const { username, firstname, lastname, email, password } = req.body;
 
+<<<<<<< HEAD
   // check fiels are not empty
+=======
+  // check fields are not empty
+>>>>>>> main
   if (!username || !firstname || !lastname || !email || !password) {
     return res
       .status(400)
@@ -26,7 +28,11 @@ async function registerUser(req, res) {
     if (user.length > 0) {
       return res.status(409).json({
         error: "Conflict",
+<<<<<<< HEAD
         message: "User already existed",
+=======
+        message: "User already exists",
+>>>>>>> main
       });
     }
 
@@ -59,6 +65,7 @@ async function registerUser(req, res) {
   }
 }
 
+<<<<<<< HEAD
 //Login section
 async function login(req, res) {
   const { email, password } = req.body;
@@ -118,3 +125,8 @@ async function checkUser(req, res) {
 //these functions need to be exported to be used by useRouter
 //functions are exported as an object using {}
 module.exports = { registerUser, login, checkUser };
+=======
+module.exports = {
+  registerUser,
+}
+>>>>>>> main

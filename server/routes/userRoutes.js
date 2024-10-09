@@ -1,27 +1,32 @@
-const express = require("express");
+const express = require('express');
+//authentication middleware
+const authMiddleware = require('../middleware/authMiddleware')
+//Creating a router instance
 const router = express.Router();
 
-//authentication middleware
-const authMiddleware = require("../middleware/authMiddleware");
-
-//import user controller functions from userController component
-
+//Importing the user controller
 const {
-   registerUser,
-   login,
-   checkUser,
+  registerUser,
+  login,
+  checkUser,
 } = require("../controller/userController");
 
-//register routes
 
-//register, login and checkUser are functions and are defined in the controller component
-router.post("/register", registerUser);
+router.post('/register', registerUser);
 
+
+<<<<<<< HEAD
 
 //login user
 router.post("/login", login);
 
 //check user
 router.get("/check", authMiddleware, checkUser);//for home protector(it send user)
+=======
+router.post("/login", login);
+
+
+router.get("/check", authMiddleware, checkUser);
+>>>>>>> main
 
 module.exports = router;

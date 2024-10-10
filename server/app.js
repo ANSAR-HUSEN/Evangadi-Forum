@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const cors = require('cors');
-const PORT = process.env.PORT || 5501;
+const PORT = process.env.PORT || 5500;
 
 // const cors = require("cors");
 app.use(cors());
@@ -26,13 +26,11 @@ app.use("/api", questionsRoutes);
 const answerRoutes = require('./routes/answerRoutes');
 app.use("/api", answerRoutes);
 
-// const userRoutes = require("./routes/userRoutes");
+
 
 // Question Routes middleware file
 const questionRoutes = require("./routes/questionRoutes");
 
-// Answer Routes middleware file
-// const answerRoutes = require("./routes/answerRoutes");
 
 // user rotes middleware
 app.use('/api/users', userRoutes);

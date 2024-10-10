@@ -1,15 +1,26 @@
 const dbConnection = require("../db/dbConfig");
 const crypto = require("crypto");
 const { StatusCodes } = require("http-status-codes");
+const KeywordExtractor = require("keyword-extractor");
+
+
+const generateTag = (title) => {
+  const extractionResult = KeywordExtractor.extract(title, {
+    language: "english",
+    remove_digits: true,
+    return_changed_case: true,
+    remove_duplicates: true,
+  });
+  return extractionResult.length > 0 ? extractionResult[0] : "general";
+};
 
 async function postQuestion(req, res) {
-  const { title, description, tag } = req.body;
+  const { title, description } = req.body;
 
   // Check for missing items
   if (!title || !description) {
-    return res.status(400).json({
-      error: "Bad Request",
-      message: "Please provide all required fields!",
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      error: "Please provide all required fields!",
     });
   }
 
@@ -19,22 +30,27 @@ async function postQuestion(req, res) {
 
     // get a unique identifier for questionid so two questions do not end up having the same id. crypto built in node module.
     const questionid = crypto.randomBytes(16).toString("hex");
+    
+    const tag = generateTag(title);
 
     // Insert question into database
     await dbConnection.query(
       "INSERT INTO questions ( userid, questionid, title, description, tag, created_at) VALUES (?,?,?,?,?,?)",
-      [userid, questionid, title, description, tag, new Date() || null]
+      [userid, questionid, title, description, tag, new Date()]
     );
 
-    return res.status(201).json({ message: "Question created successfully" });
+    return res.status(201).json({
+      message: "Question created successfully",});
+
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({
-      error: "Internal Server Error",
-      message: "An unexpected error occurred.",
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: "An unexpected error occurred.",
     });
   }
 }
+
+
 
 async function getAllQuestion(req, res) {
   try {
@@ -68,7 +84,6 @@ async function getSingleQuestion(req, res) {
   }
 
   try {
-    // Validate question_id is a number
 
     // Query the database to get the question details
     const [question] = await dbConnection.execute(
@@ -94,5 +109,3 @@ async function getSingleQuestion(req, res) {
 }
 
 module.exports = { postQuestion, getAllQuestion, getSingleQuestion };
-
-

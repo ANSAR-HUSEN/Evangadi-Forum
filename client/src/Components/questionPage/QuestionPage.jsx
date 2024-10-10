@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./questionPage.css";
 import LayOut from "../../Pages/Layout/LayOut";
-
+import axios from "axios";
 
 function QuestionPage() {
   const [title, setTitle] = useState("");
@@ -26,6 +26,8 @@ function QuestionPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
      const tag = generateTag(title);
+     console.log("Generated tag:", tag);
+
     try {
       const response = await axios.post("http://localhost:5500/api/question", {
         title,
@@ -35,56 +37,58 @@ function QuestionPage() {
       setQuestions((prevQuestions) => [...prevQuestions, response.data]);
       setTitle("");
       setDescription("");
+      alert("You posted your question!");
     } catch (error) {
       setError(error.message);
     }
   };
 
-  //get all questions
 
   return (
-    <div>
-      <div className="steps_toFollow">
-        <h2>Steps to write a good question</h2>
-        <ul>
-          <li>Summerize your question in a one-line title.</li>
-          <li>Describe your problem in more detail.</li>
-          <li>Describe what you tried and what you expected to happen.</li>
-          <li>Review your question and post it to the site.</li>
-        </ul>
-      </div>
-
-      <div className="question_form">
-        <div className="question_title">
-          <h2>Ask the Public your Question</h2>
+    <LayOut>
+      <div>
+        <div className="steps_toFollow">
+          <h2>Steps for writing a good question</h2>
+          <ul>
+            <li>Summerize your question in a one-line title.</li>
+            <li>Describe your problem in more detail.</li>
+            <li>Describe what you tried and what you expected to happen.</li>
+            <li>Review your question and post it to the site.</li>
+          </ul>
         </div>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-         
-          <textarea
-            placeholder="Question Description..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
 
-          <button type="submit">Post Your Question</button>
-        </form>
-        <div className="posted_questions">
-          {questions.map((question) => (
-            <div key={question.questionId}>
-              <h3>{question.title}</h3>
-              <p>{question.description}</p>
-              <p>{question.tag}</p>
-            </div>
-          ))}
+        <div className="question_form">
+          <div className="question_title">
+            <h2>Ask the Public your Question</h2>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+
+            <textarea
+              placeholder="Question Description..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+
+            <button type="submit">Post Your Question</button>
+          </form>
+          <div className="posted_questions">
+            {questions.map((question) => (
+              <div key={question.questionId}>
+                <h3>{question.title}</h3>
+                <p>{question.description}</p>
+                <p>{question.tag}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </LayOut>
   );
 }
 

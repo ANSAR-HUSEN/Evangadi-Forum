@@ -2,9 +2,8 @@ const dbConnection = require("../db/dbConfig");
 const bcrypt = require("bcrypt");
 const { StatusCodes } = require("http-status-codes"); //https status codes
 const jwt = require("jsonwebtoken"); //for web tokens
-
-const dotenv = require("dotenv");
-dotenv.config();
+const dotenv = require('dotenv');
+dotenv.config()
 
 // Register a new user
 async function registerUser(req, res) {
@@ -91,7 +90,7 @@ async function login(req, res) {
 
       const username = user[0].username;
       const userid = user[0].userid;
-      const token = jwt.sign({ username, userid }, "secret", {
+      const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
          expiresIn: "1d",
       }); //username and userid are used to sign the token, token validity set to 1 day
 

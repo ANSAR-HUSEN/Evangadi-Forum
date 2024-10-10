@@ -1,5 +1,6 @@
 const dbConnection = require("../db/dbConfig");
 const crypto = require("crypto");
+const { StatusCodes } = require("http-status-codes");
 
 async function postQuestion(req, res) {
   const { title, description, tag } = req.body;
@@ -39,102 +40,59 @@ async function getAllQuestion(req, res) {
   try {
     // GEt all questions from the database
     const [questions] = await dbConnection.execute(
-      "SELECT q.*, u.username FROM questions q JOIN users u ON q.userid = u.userid"
+      "SELECT q.*,u.username FROM questions q JOIN users u ON q.userid = u.userid"
     );
     //check if the questions array is empty
     if (questions.length === 0) {
-      return res.status(400).json({ message: "No questions fround." });
+      return res.status(404).json({ message: "No questions fround." });
     }
 
-    return res.json(questions);
+    return res.status(StatusCodes.OK).json(questions);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Failed to fetch questions" });
+    return res
+      .status(500)
+      .json({ message: "An unexpected error occurred", error: error });
   }
 }
 
-module.exports = { postQuestion, getAllQuestion };
-const dbConnection = require("../db/dbConfig.js");
-const { StatusCodes } = require("http-status-codes");
-
-// const questionController = require("../controller/QuestionController");
-
 // Controller to get a single question by ID
-// async function getSingleQuestion(req, res) {
-//   const { question_id } = req.params;
+async function getSingleQuestion(req, res) {
+  const { question_id } = req.params;
+  console.log(question_id);
 
-//   try {
-//     // Validate question_id is a number
-//     if (isNaN(question_id)) {
-//       return res
-//         .status(StatusCodes.BAD_REQUEST)
-//         .json({ msg: "Invalid question ID" });
-//     }
-
-//     // Query the database to get the question details
-//     const [question] = await dbConnection.query(
-//       "SELECT * FROM questions WHERE question_id = ?",
-//       [question_id]
-//     );
-
-//     // If no question found, return 404
-//     if (question.length === 0) {
-//       return res
-//         .status(StatusCodes.NOT_FOUND)
-//         .json({ msg: "Question not found" });
-//     }
-
-//     // Return the question details
-//     return res.status(StatusCodes.OK).json({ question: question[0] });
-//   } catch (error) {
-//     console.error(error.message);
-//     return res
-//       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-//       .json({ msg: "An unexpected error occurred" });
-//   }
-// }module.exports = getSingleQuestion;
-
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 5000;
-app.use(cors());
-app.use(express.json());
-const dbConnection = require("../server/DB/dbConfig");
-// mock database
-const questions = [
-  {
-    question_id: 1,
-    tittle: "First Question",
-    content: "This is the first question.",
-    user_id: 123,
-    created_at: "2023-06-30T12:00:00z",
-  },
-];
-// Endpoint to retrieve details of a specific question
-app.get("api/question/:question_id", (req, res) => {
-  const questionId = parseInt(req.params.question_id, 10);
-  const question = questions.find((q) => q.question_id === questionId);
-  if (question) {
-    res.status(200).json({ question });
-  } else {
-    res.status(404).json({
-      error: "Not Found",
-      message: "The requested question could not be found.",
-    });
+  if (!question_id) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Invalid question ID" });
   }
-});
-// error handling for unexpected issues
-app.use((err, req, res, next) => {
-  console.error(err);
-  res
-    .status(500)
-    .json({
-      error: "Internal Server Error",
-      message: "an unexpected error occurred.",
-    });
-});
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
 
-//
+  try {
+    // Validate question_id is a number
+
+    // Query the database to get the question details
+    const [question] = await dbConnection.execute(
+      "SELECT * FROM questions WHERE questionid = ?",
+      [question_id]
+    );
+
+    // If no question found, return 404
+    if (question.length === 0) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "Question not found" });
+    }
+
+    // Return the question details
+    return res.status(StatusCodes.OK).json({ question: question[0] });
+  } catch (error) {
+    console.error(error.message);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "An unexpected error occurred" });
+  }
+}
+
+module.exports = { postQuestion, getAllQuestion, getSingleQuestion };
+
+

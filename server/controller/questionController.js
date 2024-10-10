@@ -1,5 +1,6 @@
 const dbConnection = require("../db/dbConfig");
 const crypto = require("crypto");
+const { StatusCodes } = require("http-status-codes");
 
 async function postQuestion(req, res) {
   const { title, description, tag } = req.body;
@@ -42,27 +43,33 @@ async function postQuestion(req, res) {
   }
 }
 
+// Get all questions
 async function getAllQuestion(req, res) {
-  try {
-    // GEt all questions from the database
-    const [questions] = await dbConnection.execute(
-      "SELECT q.*, u.username FROM questions q JOIN users u ON q.userid = u.userid"
-    );
-    //check if the questions array is empty
-    if (questions.length === 0) {
-      return res.status(400).json({ message: "No questions fround." });
-    }
 
-    return res.json(questions);
+  try {
+    // Query to fetch all questions from the database
+    const [questions] = await dbConnection.execute(
+      "SELECT q.*, u.username FROM questions q JOIN users u ON q.userid = u.userid"
+    );
+
+    // Check if the questions array is empty
+    if (questions.length === 0) {
+      // Return a 404 error if no questions are found
+      // If empty, send a 404 response
+      return res.status(404).json({
+        error: "Not Found", // Error type
+        message: "No questions found.", // Error message
+      });
+    }
+    return res.status(200).json(questions);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Failed to fetch questions" });
+    return res.status(500).json({
+      error: "Internal Server Error",
+      message: "An unexpected error occurred.",
+    });
   }
 }
-
-module.exports = { postQuestion, getAllQuestion };
-const dbConnection = require("../db/dbConfig.js");
-const { StatusCodes } = require("http-status-codes");
 
 // const questionController = require("../controller/QuestionController");
 
@@ -101,6 +108,7 @@ async function getSingleQuestion(req, res) {
   }
 }
 
-module.exports = getSingleQuestion;
+
+module.exports = { postQuestion, getSingleQuestion, getAllQuestion };
 
 //

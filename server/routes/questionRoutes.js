@@ -17,7 +17,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 router.get("/:question_id", getSingleQuestion);
 
-// router.get("/", questionController.getSingleQuestion);
+router.get("/", questionController.getAllQuestion);
 // router.post("/", questionController.createQuestion);
 
 module.exports = router;

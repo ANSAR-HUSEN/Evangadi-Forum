@@ -1,5 +1,6 @@
 const dbConnection = require("../db/dbConfig");
 const crypto = require("crypto");
+const { StatusCodes } = require("http-status-codes");
 
 async function postQuestion(req, res) {
   const { title, description, tag } = req.body;
@@ -22,14 +23,7 @@ async function postQuestion(req, res) {
     // Insert question into database
     await dbConnection.query(
       "INSERT INTO questions ( userid, questionid, title, description, tag, created_at) VALUES (?,?,?,?,?,?)",
-      [
-        userid,
-        questionid,
-        title,
-        description,
-        tag,
-        new Date() || null
-      ]
+      [userid, questionid, title, description, tag, new Date() || null]
     );
 
     return res.status(201).json({ message: "Question created successfully" });
@@ -46,41 +40,39 @@ async function getAllQuestion(req, res) {
   try {
     // GEt all questions from the database
     const [questions] = await dbConnection.execute(
-      "SELECT q.*, u.username FROM questions q JOIN users u ON q.userid = u.userid"
+      "SELECT q.*,u.username FROM questions q JOIN users u ON q.userid = u.userid"
     );
     //check if the questions array is empty
     if (questions.length === 0) {
-      return res.status(400).json({ message: "No questions fround." });
+      return res.status(404).json({ message: "No questions fround." });
     }
 
-    return res.json(questions);
+    return res.status(StatusCodes.OK).json(questions);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Failed to fetch questions" });
+    return res
+      .status(500)
+      .json({ message: "An unexpected error occurred", error: error });
   }
 }
-
-module.exports = { postQuestion, getAllQuestion };
-const dbConnection = require("../db/dbConfig.js");
-const { StatusCodes } = require("http-status-codes");
-
-// const questionController = require("../controller/QuestionController");
 
 // Controller to get a single question by ID
 async function getSingleQuestion(req, res) {
   const { question_id } = req.params;
+  console.log(question_id);
+
+  if (!question_id) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Invalid question ID" });
+  }
 
   try {
     // Validate question_id is a number
-    if (isNaN(question_id)) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "Invalid question ID" });
-    }
 
     // Query the database to get the question details
-    const [question] = await dbConnection.query(
-      "SELECT * FROM questions WHERE question_id = ?",
+    const [question] = await dbConnection.execute(
+      "SELECT * FROM questions WHERE questionid = ?",
       [question_id]
     );
 
@@ -101,6 +93,6 @@ async function getSingleQuestion(req, res) {
   }
 }
 
-module.exports = getSingleQuestion;
+module.exports = { postQuestion, getAllQuestion, getSingleQuestion };
 
-//
+

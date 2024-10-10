@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+
+
+import React, {useState } from 'react'
+import Footer from './components/footer/Footer'
+
+
+
 import Home from "./Pages/Home/Home";
-import { Route, Routes, useNavigate } from "react-router-dom";
-// import Login  from "./Pages/Login";
-// import Register from "./Pages/Register";
-import { useEffect, createContext } from "react";
-import axios from './axios';//to use axios url
-import Routing from "./Routing";
+
+
+import SignUp from "./components/SignUp/SignUp";
+
+
+
+// import Header from './componet/header/header'
+
+import Routing from './Routing'
+
+import { Router } from 'react-router-dom'
+
+
+
+// import Routing from "./Routing";
 
 export const AppState = createContext();
 function App() {

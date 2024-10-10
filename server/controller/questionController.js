@@ -1,25 +1,33 @@
 //db connection
 const dbConnection = require("../db/dbConfig");
-const { statusCodes } = require("http-status-codes");
-// Get all questions
-async function getAllQuestions(req, res) {
+const crypto = require("crypto");
+const { StatusCodes } = require("http-status-codes");
+
+async function postQuestion(req, res) {
+  const { title, description, tag } = req.body;
+
+  // Check for missing items
+  if (!title || !description) {
+    return res.status(400).json({
+      error: "Bad Request",
+      message: "Please provide all required fields!",
+    });
+  }
 
   try {
-    // Query to fetch all questions from the database
-    const [questions] = await dbConnection.execute(
-      "SELECT q.*, u.username FROM questions q JOIN users u ON q.userid = u.userid"
+    // get userid from user
+    const { userid } = req.user;
+
+    // get a unique identifier for questionid so two questions do not end up having the same id. crypto built in node module.
+    const questionid = crypto.randomBytes(16).toString("hex");
+
+    // Insert question into database
+    await dbConnection.query(
+      "INSERT INTO questions ( userid, questionid, title, description, tag, created_at) VALUES (?,?,?,?,?,?)",
+      [userid, questionid, title, description, tag, new Date() || null]
     );
 
-    // Check if the questions array is empty
-    if (questions.length === 0) {
-      // Return a 404 error if no questions are found
-      // If empty, send a 404 response
-      return res.status(404).json({
-        error: "Not Found", // Error type
-        message: "No questions found.", // Error message
-      });
-    }
-    return res.status(200).json(questions);
+    return res.status(201).json({ message: "Question created successfully" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -28,4 +36,64 @@ async function getAllQuestions(req, res) {
     });
   }
 }
-module.exports = { getAllQuestions };
+
+async function getAllQuestion(req, res) {
+  try {
+    // GEt all questions from the database
+    const [questions] = await dbConnection.execute(
+      "SELECT q.*,u.username FROM questions q JOIN users u ON q.userid = u.userid"
+    );
+    //check if the questions array is empty
+    if (questions.length === 0) {
+      return res.status(404).json({ message: "No questions fround." });
+    }
+
+    return res.status(StatusCodes.OK).json(questions);
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "An unexpected error occurred", error: error });
+  }
+}
+
+// Controller to get a single question by ID
+async function getSingleQuestion(req, res) {
+  const { question_id } = req.params;
+  console.log(question_id);
+
+  if (!question_id) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Invalid question ID" });
+  }
+
+  try {
+    // Validate question_id is a number
+
+    // Query the database to get the question details
+    const [question] = await dbConnection.execute(
+      "SELECT * FROM questions WHERE questionid = ?",
+      [question_id]
+    );
+
+    // If no question found, return 404
+    if (question.length === 0) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "Question not found" });
+    }
+
+    // Return the question details
+    return res.status(StatusCodes.OK).json({ question: question[0] });
+  } catch (error) {
+    console.error(error.message);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "An unexpected error occurred" });
+  }
+}
+
+module.exports = { postQuestion, getAllQuestion, getSingleQuestion };
+
+

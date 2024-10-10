@@ -5,17 +5,16 @@
 } */
 
 .signUp {
-  border-radius: 8px;
-  border: solid 1px lightgray;
-  width: 40%;
-  padding: 60px;
-  margin-top: 5%;
-  margin-left: 15%;
+  /* border-radius: 8px; */
+  /* border: solid 1px lightgray; */
+  /* width: 40%; */
+  /* padding: 60px; */
+  /* margin-top: 5%; */
+  /* margin-left: 15%; */
   display: block;
   text-align: center;
-  box-sizing: border-box;
-  box-shadow: 10px 10px 10px lightgray;
-  height: 60vh;
+  /* box-sizing: border-box; */
+  /* box-shadow: 10px 10px 10px lightgray; */
 }
 
 .accountTitle h1 {

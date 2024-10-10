@@ -3,6 +3,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import "./Home.css";
 import LayOut from "../Layout/LayOut";
+import { Link } from "react-router-dom";
 
 //main home page
 function Home() {
@@ -11,10 +12,10 @@ function Home() {
       <section className="home_container">
         {/* button container for asking questions and welcoming the user  */}
         <div className="btn_container">
-          <a href="">
+          <Link to="/questionPage">
             {/* link for ask question button  */}
             <button className="ask_blue">Ask Question</button>
-          </a>
+          </Link>
           <p>
             welcome: <span>user</span>
             {/* greeting the username  */}
@@ -30,7 +31,7 @@ function Home() {
         </div>
         {/* user details section  */}
         <div className="user_container">
-          <a href="" className="link">
+          <a href="/" className="link">
             <div className="profile_container">
               <div className="user_icon">
                 <AccountCircleIcon />

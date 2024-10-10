@@ -9,7 +9,6 @@
   margin-top: 40px;
 }
 
-
 .question_form {
   width: 80%;
   height: 500px;
@@ -58,4 +57,26 @@
   background-color: #516cf1;
   color: var(--input-color);
   box-shadow: 0 2px 4px #516cf1;
+}
+
+@media (max-width: 600px) {
+  .steps_toFollow {
+    margin-top: 20px;
+    padding: 0 4px 0 30px;
+  }
+  .steps_toFollow h2 {
+    font-size: 18px;
+  }
+  .question_form {
+    width: 90%;
+  }
+
+  .question_title h2 {
+    font-size: 20px;
+    width: 100%;
+    padding-left: 8px;
+  }
+  .question_form button {
+    width: 100%;
+  }
 }

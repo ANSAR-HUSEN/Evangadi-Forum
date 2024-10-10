@@ -1,0 +1,87 @@
+.auth {
+  width: 100%;
+  height: auto;
+  background-image: url(../../assets/back.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.auth--container {
+  width: 75%;
+  margin: 0 auto;
+}
+.auth--outer-wrap {
+  width: 100%;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 5rem 0;
+}
+
+.auth--signIn-signUp,
+.auth--about {
+  width: 50%;
+}
+
+.auth--signIn-signUp-container {
+  padding-top: 30px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 14px;
+  box-shadow: 10px 10px 20px rgba(58, 58, 58, 0.288);
+}
+
+.auth-containerTransitionGroup {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.auth-containerTransitionGroup > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* auth-containerTransitionGroup */
+/* Sliding in from the right */
+.slide-enter {
+  transform: translateX(-100%);
+}
+
+.slide-enter-active {
+  transform: translateX(0%);
+  transition: transform 300ms ease-in;
+}
+
+/* Sliding out to the left */
+.slide-exit {
+  transform: translateX(0%);
+  transition: transform 300ms ease-out;
+}
+
+.slide-exit-active {
+  transform: translateX(-100%);
+  transition: transform 300ms ease-out;
+}
+
+@media screen and (min-width: 1440px) {
+  .auth--outer-wrap {
+    width: 1024px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .auth--outer-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+  .auth--signIn-signUp,
+  .auth--about {
+    width: 100%;
+  }
+}

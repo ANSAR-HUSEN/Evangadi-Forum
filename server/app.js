@@ -28,7 +28,7 @@ const answerRoutes = require('./routes/answerRoutes');
 app.use('/api/users', userRoutes);
 
 // Use question routes
-
+app.use("/api", questionRoutes);
 
 // Use answer routes
 app.use('/api', answerRoutes)

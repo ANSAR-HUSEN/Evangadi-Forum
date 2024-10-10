@@ -42,22 +42,6 @@ async function postQuestion(req, res) {
   }
 }
 
-async function getAllQuestion(req, res) {
-  try {
-    // GEt all questions from the database
-    const [questions] = await dbConnection.execute(
-      "SELECT q.*, u.username FROM questions q JOIN users u ON q.userid = u.userid"
-    );
-    //check if the questions array is empty
-    if (questions.length === 0) {
-      return res.status(400).json({ message: "No questions fround." });
-    }
 
-    return res.json(questions);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Failed to fetch questions" });
-  }
-}
 
-module.exports = { postQuestion, getAllQuestion };
+module.exports = { postQuestion };

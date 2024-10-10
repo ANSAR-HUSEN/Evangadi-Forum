@@ -16,7 +16,7 @@ function QuestionPage() {
       language: "english",
       remove_digits: true,
       return_changed_case: true,
-      remove_duplicates: true,
+      remove_duplicates: true,  
     });
 
     // If extraction returns no keywords, return a default tag
@@ -48,7 +48,7 @@ function QuestionPage() {
       <div className="steps_toFollow">
         <h2>Steps to write a good question</h2>
         <ul>
-          <li>Summerize your problem in a one-line title.</li>
+          <li>Summerize your question in a one-line title.</li>
           <li>Describe your problem in more detail.</li>
           <li>Describe what you tried and what you expected to happen.</li>
           <li>Review your question and post it to the site.</li>
@@ -66,7 +66,7 @@ function QuestionPage() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          {/* title and description updates with the new value entered by the user */}
+         
           <textarea
             placeholder="Question Description..."
             value={description}
@@ -80,7 +80,6 @@ function QuestionPage() {
             <div key={question.questionId}>
               <h3>{question.title}</h3>
               <p>{question.description}</p>
-              <p> {question.username}</p>
               <p>{question.tag}</p>
             </div>
           ))}

@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { GoEyeClosed, GoEye } from "react-icons/go";
+import axiosBase from "../../axiosConfig";
+import { Link } from "react-router-dom";
 
 function Login() {
    //useNavigate --->to re-direct user to homepage after successful login
@@ -14,7 +16,7 @@ function Login() {
 
    const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
-   }; 
+   };
 
    async function handleSubmit(e) {
       e.preventDefault();
@@ -29,7 +31,7 @@ function Login() {
       }
 
       try {
-         await axios.post("/users/login", {
+         await axiosBase.post("/users/login", {
             email: emailValue,
             password: passwordValue,
          });

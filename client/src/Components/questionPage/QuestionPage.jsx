@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./questionPage.css";
-import axios from "axios"
-import KeywordExtractor from "keyword-extractor";
+import LayOut from "../../Pages/Layout/LayOut";
 
 
 function QuestionPage() {

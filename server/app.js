@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 5500;
+
 const cors = require('cors');
+const PORT = process.env.PORT || 5500;
+
+// const cors = require("cors");
 app.use(cors());
 
 // Connect to database
@@ -22,6 +25,21 @@ app.use("/api", questionsRoutes);
 // Answer Routes middleware file
 const answerRoutes = require('./routes/answerRoutes');
 app.use("/api", answerRoutes);
+
+
+
+// Question Routes middleware file
+const questionRoutes = require("./routes/questionRoutes");
+
+
+// user rotes middleware
+app.use('/api/users', userRoutes);
+
+// Use question routes
+
+
+// Use answer routes
+app.use('/api', answerRoutes)
 
 
 // Start server

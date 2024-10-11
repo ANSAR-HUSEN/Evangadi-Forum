@@ -53,7 +53,7 @@ async function getAllQuestion(req, res) {
   try {
     // GEt all questions from the database
     const [questions] = await dbConnection.execute(
-      "SELECT q.*,u.username FROM questions q JOIN users u ON q.userid = u.userid"
+      "SELECT q.*,u.username FROM questions q JOIN users u ON q.userid = u.userid ORDER BY created_at DESC"
     );
     //check if the questions array is empty
     if (questions.length === 0) {
@@ -83,7 +83,7 @@ async function getSingleQuestion(req, res) {
   try {
     // Query the database to get the question details
     const [question] = await dbConnection.execute(
-      "SELECT * FROM questions WHERE questionid = ? ORDER BY created_at DESC",
+      "SELECT * FROM questions WHERE questionid = ?",
       [question_id]
     );
 

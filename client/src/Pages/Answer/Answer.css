@@ -63,7 +63,7 @@
   max-height: 200px; /* Ensure a maximum height for scrolling */
   overflow-y: scroll;
   overflow-x: hidden;
-  padding: 20px;
+  padding: 0 10px;
   margin-bottom: 20px;
 }
 
@@ -79,10 +79,11 @@
 .answer--question-card {
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 40px;
   margin-left: 40px;
   margin-top: 20px;
+  padding-top: 10px;
 }
 
 .answer--question-card-user {

@@ -18,6 +18,7 @@
     "@mui/material": "^6.1.2",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
+    "hamburger-react": "^2.5.1",
     "keyword-extractor": "^0.0.28",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

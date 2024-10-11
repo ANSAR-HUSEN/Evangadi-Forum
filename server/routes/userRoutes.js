@@ -15,18 +15,9 @@ const {
 router.post('/register', registerUser);
 
 
-<<<<<<< HEAD
-
-//login user
-router.post("/login", login);
-
-//check user
-router.get("/check", authMiddleware, checkUser);//for home protector(it send user)
-=======
 router.post("/login", login);
 
 
 router.get("/check", authMiddleware, checkUser);
->>>>>>> main
 
 module.exports = router;

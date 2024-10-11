@@ -12,6 +12,7 @@ function Routing() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      
       <Route path="/login" element={<Auth />} />
       <Route path="/register" element={<Auth />} />
       <Route path="/questionPage" element={<QuestionPage />} />

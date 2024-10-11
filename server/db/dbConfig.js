@@ -6,10 +6,11 @@ dotenv.config();
 const dbConnection = mysql2.createPool({
   user: process.env.DB_USER,
   database: process.env.MYSQL_DB,
-  port: process.env.DB_PORT || 3306,
+  port: process.env.DB_PORT || 8889,
   host: process.env.DB_HOST,
   password: process.env.DB_PASS,
   connectionLimit: 10,
+  socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock", //path to mysql socket in MAMP (only for mac os)
 });
 
 // // Test the connection (optional but useful)

@@ -1,12 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import "./Home.css";
 import LayOut from "../Layout/LayOut";
 import { Link } from "react-router-dom";
+import axios from "../../config/axios";
+import {AuthContext} from '../../App'
+import { useContext } from "react";
+import QuestionCard from "../../Components/QuestionCard";
 
 //main home page
 function Home() {
+  const [searchQuery, setSearchQuery] = useState("")
+  const {user} = useContext(AuthContext);
+  const [allquestions, setAllQuestions] = useState([]);
+  
+
+console.log(user);
+
+  useEffect(() => {
+
+    
+    const fetchQuestions = async () => {
+      try {
+        const allQuestion = await axios.get("/question");
+        setAllQuestions(allQuestion.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchQuestions();
+    
+  }, [user]);
+
+  const filterdQuestion = allquestions.filter((question)=>(
+    question.title.toLowerCase().includes(searchQuery.toLowerCase())
+
+
+  ))
+  console.log(allquestions);
+
   return (
     <LayOut>
       <section className="home_container">
@@ -17,56 +51,27 @@ function Home() {
             <button className="ask_blue">Ask Question</button>
           </Link>
           <p>
-            welcome: <span>user</span>
+            welcome: <span>{user.username}</span>
             {/* greeting the username  */}
           </p>
         </div>
         {/* search input for questions  */}
         <div className="search_container">
-          <input type="text" placeholder="Search question" />
+          <input value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} type="text" placeholder="Search question" />
         </div>
         {/* horizontal separate line  */}
         <div className="horizontal_line">
           <hr />
         </div>
         {/* user details section  */}
-        <div className="user_container">
-          <a href="/" className="link">
-            <div className="profile_container">
-              <div className="user_icon">
-                <AccountCircleIcon />
-                {/* user icon  */}
-                <p>sisay</p>
-                {/* user name  */}
-              </div>
-              <p className="question">javascript</p>
-              {/* user question */}
-
-              <div className="angle_icon">
-                <ChevronRightIcon />
-                {/* chevron icon for navigation  */}
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="horizontal_line">
-          <hr />
-        </div>
-        <div className="user_container">
-          <a href="" className="link">
-            <div className="profile_container">
-              <div className="user_icon">
-                <AccountCircleIcon />
-                <p>nati</p>
-              </div>
-              <p className="question">what is jwt</p>
-
-              <div className="angle_icon">
-                <ChevronRightIcon />
-              </div>
-            </div>
-          </a>
-        </div>
+        {filterdQuestion.length>0? (
+          filterdQuestion.map((question,i)=>(
+            <QuestionCard key={i} Questions={question} />
+          ))
+        ):(<p>No Question Found</p>)
+         
+        }
+        
       </section>
     </LayOut>
   );

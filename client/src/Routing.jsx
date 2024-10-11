@@ -7,6 +7,9 @@ import QuestionPage from "./Components/questionPage/QuestionPage";
 // import About from "./Components/About/About";
 // import QuestionDisplay from "./Components/QuestionDisplay";
 import Auth from "./Pages/Auth/Auth";
+import AnswerPage from "./Pages/AnswerPage";
+import AnswerForm from "./Components/AnswerForm";
+import Answer from "./Pages/Answer/Answer";
 
 function Routing() {
   return (
@@ -15,7 +18,7 @@ function Routing() {
       <Route path="/login" element={<Auth />} />
       <Route path="/register" element={<Auth />} />
       <Route path="/questionPage" element={<QuestionPage />} />
-      {/* <Route path="/questionDetail" element={<QuestionDisplay/>} /> */}
+      <Route path="/answer/:question_id" element={<Answer/>} />
     </Routes>
   );
 }

@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./questionPage.css";
 import LayOut from "../../Pages/Layout/LayOut";
-import axios from "axios";
+import axios from "../../config/axios";
+import KeywordExtractor from 'keyword-extractor'
+import { useNavigate } from "react-router-dom";
 
 function QuestionPage() {
+  const token = localStorage.getItem("token")
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [questions, setQuestions] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate()
 
   // Function to generate tags using keyword-extractor
   const generateTag = (title) => {
@@ -29,15 +33,20 @@ function QuestionPage() {
      console.log("Generated tag:", tag);
 
     try {
-      const response = await axios.post("http://localhost:5500/api/question", {
+      const response = await axios.post("/question", {
         title,
         description,
         tag,
+      },{
+        headers:{
+          Authorization:`Bearer ${token} `
+        }
       });
       setQuestions((prevQuestions) => [...prevQuestions, response.data]);
       setTitle("");
       setDescription("");
       alert("You posted your question!");
+navigate("/")
     } catch (error) {
       setError(error.message);
     }

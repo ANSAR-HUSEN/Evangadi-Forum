@@ -11,7 +11,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 // API endpoints
 router.post("/question", authMiddleware, postQuestion);
 
-router.get("/question", authMiddleware, getAllQuestion);
+router.get("/question",  getAllQuestion);
 
 router.get("/question/:question_id", getSingleQuestion);
 

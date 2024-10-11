@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { GoEyeClosed, GoEye } from "react-icons/go";
-import axios from "../../axios"
+import axios from "../../config/axios"
 
 function Login({ toggleForm }) {
   //useNavigate --->to re-direct user to homepage after successful login
@@ -30,10 +30,12 @@ function Login({ toggleForm }) {
     }
 
     try {
-      await axios.post("/users/login", {
+     const response = await axios.post("/users/login", {
         email: emailValue,
         password: passwordValue,
       });
+      localStorage.setItem("token",response?.data?.token)
+      console.log(response.data);
       alert("Login Successful");
       navigate("/");
     } catch (error) {

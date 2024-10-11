@@ -1,15 +1,55 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./SignUp.css";
+import axios from "../../config/axios";
 import { FaEyeSlash } from "react-icons/fa";
 import LayOut from "../../Pages/Layout/LayOut";
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function SignUp({ toggleForm }) {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const navigate = useNavigate()
+  const emailDom = useRef();
+  const passwordDom = useRef();
+  const firstNameDom = useRef();
+  const lastNameDom = useRef();
+  const userNameDom = useRef();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    //function runs when the user submits the form
+
+    const emailValue = emailDom.current.value;
+    const passwordValue = passwordDom.current.value;
+    const firstNameValue = firstNameDom.current.value;
+    const lastNameValue = lastNameDom.current.value;
+    const userNameValue = userNameDom.current.value;
+
+    if (!emailValue || !passwordValue || !firstNameValue || !lastNameValue || !userNameValue ) {
+      alert("Please provide all required information");
+      return;
+    }
+
+    try {
+      await axios.post("/users/register", {
+        email: emailValue,
+        password: passwordValue,
+        firstname:firstNameValue,
+        lastname:lastNameValue,
+        username:userNameValue
+      });
+      alert("user registered  Successfully");
+      navigate("/login");
+    } catch (error) {
+      alert("Something Went Wrong");
+      console.log(error);
+    }
+  }
+
 
   return (
     <div className="signUp">
@@ -20,26 +60,27 @@ function SignUp({ toggleForm }) {
         </h3>
       </div>
       <div>
-        <form action="#">
+        <form  onSubmit={handleSubmit} action="#">
           <div className="bigInput">
-            <input type="email" placeholder="Email" />
+            <input ref={emailDom} type="email" placeholder="Email" />
           </div>
           <div className="smallInput">
-            <input className="second" type="text" placeholder="First Name" />
-            <input type="text" placeholder="Last Name" />
+            <input ref={firstNameDom} className="second" type="text" placeholder="First Name" />
+            <input ref={lastNameDom} type="text" placeholder="Last Name" />
           </div>
           <div className="bigInput">
-            <input type="text" placeholder="User Name" />
+            <input ref={userNameDom} type="text" placeholder="User Name" />
             <input
+            ref={passwordDom}
               type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
             />
-            <button className="eye" onClick={togglePasswordVisibility}>
+            <span className="eye" onClick={togglePasswordVisibility}>
               {showPassword ? <FaEye /> : <FaEyeSlash />}
-            </button>
+            </span>
           </div>
           <div className="btn">
-            <button>Agree and Join</button>
+            <button type="submit">Agree and Join</button>
           </div>
         </form>
         <div>

@@ -1,9 +1,17 @@
 /* main container for the home page  */
+.home__container__wrap {
+  width: 80%;
+  margin: 0 auto;
+  /* height: 65vmax; */
+  margin-bottom: 20px;
+}
 .home_container {
   padding-top: 60px;
   display: flex;
   flex-direction: column;
   gap: 5px;
+  /* overflow-y: hidden; */
+  /* z-index: 500; */
 }
 /* container for button and user greeting  */
 .btn_container {
@@ -36,10 +44,14 @@
 /* search input styles  */
 .search_container input {
   margin-left: 10%;
-  padding: 6px;
-  margin-bottom: 10px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
   width: 70%;
+  border: 1.5px solid #ccc;
+  outline: none;
+  border-radius: 5px;
 }
+
 /* user detail container  */
 .user_container {
   margin-bottom: 8px;
@@ -49,13 +61,17 @@
 }
 /* user icon styles  */
 .user_icon svg {
+  display: flex;
+  align-items: center;
   font-size: 60px;
   color: #3b455a;
 }
 /* user icon and name container  */
 .user_icon {
   display: flex;
+  align-items: center;
   flex-direction: column;
+  justify-content: center;
 }
 /* padding for user name  */
 .user_icon p {
@@ -64,6 +80,7 @@
 /* profile container for user and question  */
 .profile_container {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-right: 16%;
 }
@@ -78,11 +95,30 @@
 }
 /* styles for question text  */
 .question {
-  margin-top: 35px;
-  padding-right: 40%;
+  /* margin-top: 35px; */
+  /* padding-right: 40%; */
 }
 
-.link{
+.link {
   text-decoration: none;
-  color: #24334B;
+  color: #24334b;
+}
+
+/* .home__QuestionCard_box {
+  width: 100%;
+  margin: 0 auto;
+  height: 50vh;
+  overflow: scroll;
+  z-index: 1;
+} */
+
+.home__QuestionCard_box::-webkit-scrollbar {
+  overflow: hidden;
+}
+
+.question {
+  width: 60%;
+
+  /* padding-top: 20px; */
+  /* text-align: center; */
 }

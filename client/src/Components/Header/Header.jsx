@@ -1,56 +1,66 @@
-import React, { useContext, useEffect, useState } from 'react';
-import './header.css';
-import {AuthContext} from '../../App'
-import { Link } from 'react-router-dom';
+// import React from "react";
+import "./Header.css";
+import logo from "../../assets/images/logos/evangadi_main_logo_black.png";
+import { useState, useContext } from "react";
+import { Squash as Hamburger } from "hamburger-react";
+import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../../App";
 
 function Header() {
-  const [signout, setSignout] = useState(false)
-  const {user}= useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [isOpen, setOpen] = useState(false);
+  // access the user and setUser from the context
 
-  // useEffect(() => {
-
-  //   if (user){
-  //     setSignout(true)
-
-
-  //   }
-   
-  // }, [user])
-  
-
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/login");
+  };
 
   return (
-    <section className="header__container">
-    <div className="header__logo">
-      <Link to="/">
-        <img
-          src="https://www.evangadi.com/themes/humans/assets/hammerlook/img/misc/evangadi-logo-black.png"
-          alt="img"
-        ></img>
-      </Link>
-    </div>
+    <div className="header">
+      <div className="header-container">
+        <div className={`header-logo ${isOpen ? "active" : ""}`}>
+          <Link to="/">
+            <img src={logo} alt="evangadi logo" />
+          </Link>
+        </div>
 
-    <div className="header__menu">
-      <ul className='header__ul'>
-      <li>
-          <Link to="/">Home</Link>
-        </li>
-      <li>
-          <Link to="#">How it Works</Link>
-        </li>
-       <Link to="/login">
-       <li>
-        <button>{user.username && user ? ("SIGN OUT"):("SIGN IN") }</button>
-        </li>
-       </Link>
-       
-       
-      </ul>
+        <div className="header__nav-wrap">
+          <nav className={`header__nav-container ${isOpen ? "" : "active"}`}>
+            <ul className="header__nav-lists">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/">How it Works</Link>
+              </li>
+            </ul>
+            {/* Conditionally render Sign In or Sign Out button based on user authentication */}
+            {user && user.username ? (
+              <button className="header__nav__btn" onClick={handleLogout}>
+                Sign Out
+              </button>
+            ) : (
+              <button
+                className="header__nav__btn"
+                onClick={() => navigate("/login")}
+              >
+                Sign In
+              </button>
+            )}
+          </nav>
+          <div
+            className="header__nav-hamburger"
+            onClick={() => setOpen(!isOpen)}
+          >
+            <Hamburger toggled={isOpen} size={30} toggle={setOpen} />
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
-  
-  )
+  );
 }
 
-export default Header
+export default Header;

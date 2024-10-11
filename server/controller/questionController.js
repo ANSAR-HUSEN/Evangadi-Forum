@@ -3,7 +3,6 @@ const crypto = require("crypto");
 const { StatusCodes } = require("http-status-codes");
 const KeywordExtractor = require("keyword-extractor");
 
-
 const generateTag = (title) => {
   const extractionResult = KeywordExtractor.extract(title, {
     language: "english",
@@ -30,7 +29,7 @@ async function postQuestion(req, res) {
 
     // get a unique identifier for questionid so two questions do not end up having the same id. crypto built in node module.
     const questionid = crypto.randomBytes(16).toString("hex");
-    
+
     const tag = generateTag(title);
 
     // Insert question into database
@@ -40,8 +39,8 @@ async function postQuestion(req, res) {
     );
 
     return res.status(201).json({
-      message: "Question created successfully",});
-
+      message: "Question created successfully",
+    });
   } catch (error) {
     console.log(error.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -50,13 +49,11 @@ async function postQuestion(req, res) {
   }
 }
 
-
-
 async function getAllQuestion(req, res) {
   try {
     // GEt all questions from the database
     const [questions] = await dbConnection.execute(
-      "SELECT q.*,u.username FROM questions q JOIN users u ON q.userid = u.userid"
+      "SELECT q.*,u.username FROM questions q JOIN users u ON q.userid = u.userid ORDER BY created_at DESC"
     );
     //check if the questions array is empty
     if (questions.length === 0) {
@@ -84,7 +81,6 @@ async function getSingleQuestion(req, res) {
   }
 
   try {
-
     // Query the database to get the question details
     const [question] = await dbConnection.execute(
       "SELECT * FROM questions WHERE questionid = ?",

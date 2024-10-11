@@ -1,6 +1,6 @@
 import LayOut from "../Layout/LayOut";
 import { FaCircleArrowRight } from "react-icons/fa6";
-// import userAvatar from "../../assets/icons/user-avatar.svg";
+import userAvatar from "../../assets/icons/user-avatar.svg";
 import "./Answer.css";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -113,23 +113,26 @@ function Answer() {
           <div className="answer-ofList-container">
             {answerList.length > 0 ? (
               answerList.map((answer) => (
-                <div key={answer.answer_id} className="answer--question-card">
-                  <div className="answer--question-card-user">
-                    <img
-                      // src={userAvatar}
-                      style={{ width: "60px", height: "60px" }}
-                      alt="user"
-                    />
-                    <h4>{answer.user_name}</h4>
+                <>
+                  <div key={answer.answer_id} className="answer--question-card">
+                    <div className="answer--question-card-user">
+                      <img
+                        src={userAvatar}
+                        style={{ width: "60px", height: "60px" }}
+                        alt="user"
+                      />
+                      <h4>{answer.user_name}</h4>
+                    </div>
+                    <div className="answer--question-card-title">
+                      <p>{answer.content}</p>
+                    </div>
+                    <span className="answer--question-card-date">
+                      Answered on:{" "}
+                      {new Date(answer.created_at).toLocaleDateString()}
+                    </span>
                   </div>
-                  <div className="answer--question-card-title">
-                    <p>{answer.content}</p>
-                  </div>
-                  <span className="answer--question-card-date">
-                    Answered on:{" "}
-                    {new Date(answer.created_at).toLocaleDateString()}
-                  </span>
-                </div>
+                  <hr />
+                </>
               ))
             ) : (
               <p>No answers yet. Be the first to answer!</p>
